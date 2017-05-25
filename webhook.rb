@@ -39,7 +39,7 @@ module GHStatusWebhook
       if pull_request_statuses.values.all? { |state| state != "pending" }
         slack_client = Slack::Web::Client.new
         message = "All tests are done: #{pull_request_url}"
-        slack_client.chat_postMessage(channel: "@julian", text: message, username: "Jenkins", as_user: false)
+        slack_client.chat_postMessage(channel: "@julian", text: message, as_user: true)
       else
         puts "Some statuses are still pending"
       end
