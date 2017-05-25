@@ -7,6 +7,7 @@ gem "thin"
 gem "json"
 gem "octokit"
 gem "netrc"
+gem "slack-ruby-client"
 
 group :development do
   gem "rake"
