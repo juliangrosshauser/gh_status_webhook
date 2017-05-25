@@ -5,6 +5,9 @@ source "https://rubygems.org"
 gem "sinatra"
 gem "thin"
 gem "json"
+gem "octokit"
+gem "netrc"
+gem "slack-ruby-client"
 
 group :development do
   gem "rake"
