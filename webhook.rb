@@ -4,6 +4,12 @@ require "bundler/setup"
 require "sinatra/base"
 require "json"
 require "octokit"
+require "slack-ruby-client"
+
+Slack.configure do |config|
+  config.token = ENV["SLACK_API_TOKEN"]
+  raise("Missing ENV[SLACK_API_TOKEN]") unless config.token
+end
 
 module GHStatusWebhook
   class Webhook < Sinatra::Base
@@ -32,7 +38,9 @@ module GHStatusWebhook
       pull_request_statuses.transform_values! { |statuses| statuses.first.state }
 
       if pull_request_statuses.values.none? { |state| state == "pending" }
-        puts "All tests are done: #{pull_request_url}"
+        slack_client = Slack::Web::Client.new
+        message = "All tests are done: #{pull_request_url}"
+        slack_client.chat_postMessage(channel: "@julian", text: message, as_user: true)
       else
         puts "Some statuses are still pending"
       end

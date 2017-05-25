@@ -6,6 +6,7 @@ gem "sinatra"
 gem "thin"
 gem "json"
 gem "octokit"
+gem "slack-ruby-client"
 
 group :development do
   gem "rake"
